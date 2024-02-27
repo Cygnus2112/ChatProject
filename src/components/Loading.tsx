@@ -7,8 +7,8 @@ const DOTS_COLOR = 'rgba(0,0,0,0.5)';
 const Loading = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.steph}>
-        <Text style={styles.stephText}>Steph</Text>
+      <View style={styles.gpt}>
+        <Text style={styles.gptText}>ChatGPT</Text>
       </View>
       <View style={styles.innerContainer}>
         <View style={styles.bubble}>
@@ -35,11 +35,11 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     borderTopLeftRadius: 0,
   },
-  steph: {
+  gpt: {
     paddingLeft: 5,
     paddingVertical: 5,
   },
-  stephText: {
+  gptText: {
     color: 'rgba(255,255,255,0.5)',
   },
 });

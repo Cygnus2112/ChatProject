@@ -54,8 +54,8 @@ const ChatMessage = ({ isUser, content, createdAt, loading }: IProps) => {
   return (
     <View style={styles.container}>
       {!isUser && (
-        <View style={styles.steph}>
-          <Text style={styles.stephText}>Steph</Text>
+        <View style={styles.gptPadding}>
+          <Text style={styles.gptTextColor}>Steph</Text>
         </View>
       )}
       <View style={styles.innerContainer}>
@@ -126,11 +126,11 @@ const styles = StyleSheet.create({
     opacity: 0.5,
     textAlign: 'right',
   },
-  steph: {
+  gptPadding: {
     paddingLeft: 5,
     paddingVertical: 5,
   },
-  stephText: {
+  gptTextColor: {
     color: 'rgba(255,255,255,0.5)',
   },
 });

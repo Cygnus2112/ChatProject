@@ -48,7 +48,7 @@ const ChatInput = ({
         style={styles.sendButton}
         disabled={disabled}
       >
-        <Text style={[styles.arrow, arrowColorStyle]}>{"\u27A4"}</Text>
+        <Text style={[styles.arrow, arrowColorStyle]}>{'\u27A4'}</Text>
       </Pressable>
     </View>
   );
