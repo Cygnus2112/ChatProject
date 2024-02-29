@@ -1,5 +1,6 @@
-import React, { useMemo } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React, { useMemo, useCallback } from 'react';
+import { StyleSheet, View, Text, Pressable } from 'react-native';
+import Toast from 'react-native-root-toast';
 
 import Loading from './Loading';
 import { IChatMessage } from '../types/types';
@@ -14,9 +15,16 @@ type IProps = {
   content: IChatMessage['content'];
   createdAt?: number;
   loading?: boolean;
+  onLongPress: (text: string) => void;
 };
 
-const ChatMessage = ({ isUser, content, createdAt, loading }: IProps) => {
+const ChatMessage = ({
+  isUser,
+  content,
+  createdAt,
+  loading,
+  onLongPress,
+}: IProps) => {
   const containerStyles = useMemo(
     () => (isUser ? styles.userContainer : styles.gptContainer),
     [isUser]
@@ -43,6 +51,16 @@ const ChatMessage = ({ isUser, content, createdAt, loading }: IProps) => {
     }
   }, [createdAt]);
 
+  const handleLongPress = useCallback(() => {
+    onLongPress(content);
+    Toast.show('Message copied to clipboard', {
+      duration: Toast.durations.LONG,
+      position: Toast.positions.BOTTOM,
+      backgroundColor: 'gray',
+      textColor: 'white',
+    });
+  }, [content, onLongPress]);
+
   if (loading) {
     return (
       <View style={styles.container}>
@@ -52,21 +70,23 @@ const ChatMessage = ({ isUser, content, createdAt, loading }: IProps) => {
   }
 
   return (
-    <View style={styles.container}>
-      {!isUser && (
-        <View style={styles.gptPadding}>
-          <Text style={styles.gptTextColor}>Steph</Text>
-        </View>
-      )}
-      <View style={styles.innerContainer}>
-        <View style={containerStyles}>
-          <View style={textBubbleStyles}>
-            <Text style={textStyles}>{content}</Text>
-            <Text style={[textStyles, styles.timestamp]}>{timeStamp}</Text>
+    <Pressable onLongPress={handleLongPress}>
+      <View style={styles.container}>
+        {!isUser && (
+          <View style={styles.gptPadding}>
+            <Text style={styles.gptTextColor}>Steph</Text>
+          </View>
+        )}
+        <View style={styles.innerContainer}>
+          <View style={containerStyles}>
+            <View style={textBubbleStyles}>
+              <Text style={textStyles}>{content}</Text>
+              <Text style={[textStyles, styles.timestamp]}>{timeStamp}</Text>
+            </View>
           </View>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

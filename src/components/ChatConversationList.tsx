@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useRef, useEffect } from 'react';
 import { StyleSheet, View, ListRenderItemInfo, FlatList } from 'react-native';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 import ChatMessage from './ChatMessage';
 
@@ -20,6 +21,10 @@ export const ChatConversationList = ({
 }: IProps) => {
   const ref = useRef(null); // TODO: typing
 
+  const handleLongPress = (text: string) => {
+    Clipboard.setString(text);
+  }
+
   const renderItem = useCallback(
     ({ item }: ListRenderItemInfo<IChatMessage>) => {
       const { id, author, content, createdAt, loading: answerLoading } = item;
@@ -31,6 +36,7 @@ export const ChatConversationList = ({
           content={content}
           createdAt={createdAt}
           loading={answerLoading}
+          onLongPress={handleLongPress}
         />
       );
     },

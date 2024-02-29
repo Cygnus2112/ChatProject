@@ -7,9 +7,14 @@
 
 import React from 'react';
 import Navigation from './src/navigation/Navigation';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 function App(): JSX.Element {
-  return <Navigation />;
+  return (
+    <RootSiblingParent>
+      <Navigation />
+    </RootSiblingParent>
+  );
 }
 
 export default App;
